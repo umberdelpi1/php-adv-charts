@@ -1,11 +1,35 @@
 
-function fatturato(){
-
+function chiamataAjax(){
   $.ajax({
-    url: "server.php",
-    method: "GET",
+    url:"server.php",
+    method:"GET",
     success: function (data){
-      console.log("data", data['grafico1']['data']);
+      var queryString = window.location.search;
+      var urlParams = new URLSearchParams(queryString);
+      var mostra = urlParams.get('level')
+
+      if(mostra == data.grafico1['access']){
+        fatturato(data);
+      } else if (mostra == data.grafico2['access']){
+        fatturato(data);
+        fatturatoByAgent(data)
+      } else {
+        fatturato(data);
+        fatturatoByAgent(data);
+        teamEfficienty(data);
+      }
+    },error: function(error){
+      console.error(error);
+    }
+  })
+}
+
+
+
+
+function fatturato(data){
+
+
 
 
     var ctx = $('#line');
@@ -58,19 +82,12 @@ function fatturato(){
           }
       }
     });
-  },error: function(error){
-    console.error(error);
-  }
-})
+
 }
 
-function fatturatoByAgent(){
+function fatturatoByAgent(data){
 
-  $.ajax({
-    url: "server.php",
-    method: "GET",
-    success: function (data){
-      console.log("data", data['grafico2']['data']);
+
 
     var ctx = $('#pie');
     console.log();
@@ -122,19 +139,12 @@ function fatturatoByAgent(){
           }
       }
     });
-  },error: function(error){
-    console.error(error);
-  }
-})
+
 }
 
-function teamEfficienty(){
+function teamEfficienty(data){
 
-  $.ajax({
-    url: "server.php",
-    method: "GET",
-    success: function (data){
-      console.log("data", data['grafico3']['data']);
+
 
     var ctx = $('#lineDue');
     console.log();
@@ -155,7 +165,7 @@ function teamEfficienty(){
                 'rgba(7,141,249, 0.3)',
                 'rgba(20,255,0, 0.3)',
                 'rgba(154,9,255, 0.3)',
-                
+
             ],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
@@ -239,19 +249,14 @@ function teamEfficienty(){
           }
       }
     });
-  },error: function(error){
-    console.error(error);
-  }
-})
+  
 }
 
 
 
 
 function init() {
-  fatturato();
-  fatturatoByAgent();
-  teamEfficienty();
+chiamataAjax();
 }
 
 $(document).ready(init);

@@ -25,17 +25,20 @@
   $res = [
     'grafico1' => [
         'type' => 'line',
-        'data' => [1000,1322,1123,2301,3288,988,502,2300,5332,2300,1233,2322]
+        'data' => [1000,1322,1123,2301,3288,988,502,2300,5332,2300,1233,2322],
+        'access' => 'guest'
     ],
     'grafico2' => [
       'type' => 'pie',
       'data' => $valore,
-      'labels' => $name
+      'labels' => $name,
+      'access' => 'employee'
     ],
     'grafico3' => [
       'type' => 'line',
       'data' => $data,
-      'team' => $team
+      'team' => $team,
+      'access' => 'clevel'
     ]
   ];
 
