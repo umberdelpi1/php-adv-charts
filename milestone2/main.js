@@ -5,18 +5,18 @@ function printLineChart(){
     url: "server.php",
     method: "GET",
     success: function (data){
-      console.log("data", data['fatturato']['data']);
+      console.log("data", data['grafico1']['data']);
 
 
     var ctx = $('#line');
     console.log();
     var myChart = new Chart(ctx, {
-      type: data.fatturato['type'],
+      type: data.grafico1['type'],
         data: {
         labels: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
         datasets: [{
             label: '# of Votes',
-            data: data.fatturato['data'],
+            data: data.grafico1['data'],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.3)',
                 'rgba(54, 162, 235, 0.3)',
@@ -70,22 +70,17 @@ function printPieChart(){
     url: "server.php",
     method: "GET",
     success: function (data){
-      console.log("data", data['fatturato']['data']);
-      var arrayAgent = data.fatturato_by_agent['data'];
-      
-      var valori = Object.values(arrayAgent);
-      var agent = Object.keys(arrayAgent);
-
+      console.log("data", data['grafico2']['data']);
 
     var ctx = $('#pie');
     console.log();
     var myChart = new Chart(ctx, {
-      type: data.fatturato_by_agent['type'],
+      type: data.grafico2['type'],
         data: {
-        labels: agent,
+        labels: data.grafico2['labels'],
         datasets: [{
             label: '# of Votes',
-            data: valori,
+            data: data.grafico2['data'],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.3)',
                 'rgba(54, 162, 235, 0.3)',
@@ -142,64 +137,3 @@ function init() {
 }
 
 $(document).ready(init);
-
-
-
-
-
-
-
-// $(document).ready(function(){
-//
-//   function printLineChart(){
-//     var ctx = $('#line');
-//
-//     $.ajax({
-//       url: "server.php",
-//       method: "GET",
-//       success: function(data) {
-//       console.log(data);
-//       },
-//       error: function(error){
-//         console.log(error);
-//       }
-//     });
-//
-//     var myChart = new Chart(ctx, {
-//       type: 'bar',
-//       data: {
-//           labels: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
-//           datasets: [{
-//               label: '# of Votes',
-//               data: [1000,1322,1123,2301,3288,988,502,2300,5332,2300,1233,2322],
-//               backgroundColor: [
-//                   'rgba(255, 99, 132, 0.2)',
-//                   'rgba(54, 162, 235, 0.2)',
-//                   'rgba(255, 206, 86, 0.2)',
-//                   'rgba(75, 192, 192, 0.2)',
-//                   'rgba(153, 102, 255, 0.2)',
-//                   'rgba(255, 159, 64, 0.2)'
-//               ],
-//               borderColor: [
-//                   'rgba(255, 99, 132, 1)',
-//                   'rgba(54, 162, 235, 1)',
-//                   'rgba(255, 206, 86, 1)',
-//                   'rgba(75, 192, 192, 1)',
-//                   'rgba(153, 102, 255, 1)',
-//                   'rgba(255, 159, 64, 1)'
-//               ],
-//               borderWidth: 1
-//           }]
-//       },
-//       options: {
-//           scales: {
-//               yAxes: [{
-//                   ticks: {
-//                       beginAtZero: true
-//                   }
-//               }]
-//           }
-//       }
-//     });
-//   }
-// });
